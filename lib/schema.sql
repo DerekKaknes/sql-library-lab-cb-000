@@ -1,11 +1,17 @@
 DROP TABLE IF EXISTS series;
+DROP TABLE IF EXISTS characters;
+DROP TABLE IF EXISTS books;
+DROP TABLE IF EXISTS authors;
+DROP TABLE IF EXISTS subgenres;
+DROP TABLE IF EXISTS character_books;
+
 CREATE TABLE series (
   id INTEGER NOT NULL PRIMARY KEY,
   title TEXT,
   author_id INTEGER,
-  sub_genre_id INTEGER,
+  subgenre_id INTEGER,
   FOREIGN KEY (author_id) REFERENCES authors(id),
-  FOREIGN KEY (sub_genre_id) REFERENCES sub_genres(id)
+  FOREIGN KEY (subgenre_id) REFERENCES subgenres(id)
 );
 
 CREATE TABLE characters (
@@ -32,7 +38,15 @@ CREATE TABLE authors (
   name TEXT
 );
 
-CREATE TABLE sub_genres (
+CREATE TABLE subgenres (
   id INTEGER NOT NULL PRIMARY KEY,
   name TEXT
+);
+
+CREATE TABLE character_books (
+  id INTEGER NOT NULL PRIMARY KEY,
+  character_id INTEGER,
+  book_id INTEGER,
+  FOREIGN KEY (character_id) REFERENCES characters(id),
+  FOREIGN KEY (book_id) REFERENCES books(id)
 );
